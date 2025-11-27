@@ -1,0 +1,45 @@
+name: Update GitHub Stats
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # runs every day at midnight
+  workflow_dispatch: # allows manual run
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Generate stats card
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          npx gh-readme-stats \
+            --username chaithanyajgowda \
+            --count_private true \
+            --include_all_commits true \
+            --theme radical \
+            --output ./STATS.md
+
+      - name: Update README
+        run: |
+          # Replace the stats section in README with the generated stats
+          sed -i '/## 📊 GitHub Stats/,$d' README.md
+          cat >> README.md <<EOL
+## 📊 GitHub Stats
+$(cat ./STATS.md)
+EOL
+
+      - name: Commit and Push
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update GitHub stats"
+          git push
