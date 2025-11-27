@@ -7,11 +7,7 @@
 ---
 
 ## 📊 GitHub Stats
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=chaithanyajgowda&show_icons=true&theme=radical)
-
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=chaithanyajgowda&theme=dark)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=chaithanyajgowda&layout=compact&theme=dark)
+<!-- GitHub stats will be auto-updated by GitHub Action -->
 
 ---
 
